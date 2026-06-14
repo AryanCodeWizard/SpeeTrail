@@ -525,6 +525,38 @@ function normalizeSplitType(raw) {
   }
   return map[(raw || '').toLowerCase().trim()] || 'equal'
 }
+// CHECK for conflicting same-event entries:
+// Same date + same participants + similar description + different payer/amount
+function checkConflictingDuplicate(row, parsedDate, parsedAmount, payer, allRows) {
+  const dateStr    = parsedDate?.toISOString().split('T')[0]
+  const desc       = row.description?.toLowerCase().trim()
+  const parts      = (row.split_with || '').toLowerCase()
+
+  for (const other of allRows) {
+    if (other._rowNumber === row._rowNumber) continue
+    const otherDate  = parseDate(other.date)?.toISOString().split('T')[0]
+    const otherDesc  = other.description?.toLowerCase().trim()
+    const otherParts = (other.split_with || '').toLowerCase()
+
+    if (otherDate !== dateStr) continue
+    if (otherParts !== parts)  continue
+
+    // Check if descriptions share a significant word (e.g. "thalassa")
+    const words      = desc.split(/\s+/).filter(w => w.length > 4)
+    const otherWords = otherDesc.split(/\s+/)
+    const overlap    = words.some(w => otherWords.includes(w))
+
+    if (overlap) {
+      return {
+        found:        true,
+        conflictRow:  other._rowNumber,
+        type:         'CONFLICTING_DUPLICATE',
+        description:  `Same event on ${dateStr} with same participants — "${row.description}" vs "${other.description}"`
+      }
+    }
+  }
+  return { found: false }
+}
 
 function buildSplits(splitType, totalAmountInr, participants, participantsRaw) {
   const type = normalizeSplitType(splitType)

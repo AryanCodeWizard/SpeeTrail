@@ -9,7 +9,6 @@ const router = express.Router()
 const connectionString = `${globalThis.process?.env?.DATABASE_URL || ''}`
 const adapter = new PrismaPg({ connectionString })
 const prisma = new PrismaClient({ adapter })
-const JWT_SECRET = globalThis?.process?.env?.JWT_SECRET
 
 // POST /api/auth/register
 router.post('/register', async (req, res) => {
@@ -20,6 +19,12 @@ router.post('/register', async (req, res) => {
   }
 
   try {
+    const JWT_SECRET = globalThis?.process?.env?.JWT_SECRET
+
+    if (!JWT_SECRET) {
+      return res.status(500).json({ error: 'JWT secret is not configured' })
+    }
+
     const existing = await prisma.user.findUnique({ where: { email } })
     if (existing) {
       return res.status(409).json({ error: 'Email already registered' })
@@ -54,6 +59,12 @@ router.post('/login', async (req, res) => {
   }
 
   try {
+    const JWT_SECRET = globalThis?.process?.env?.JWT_SECRET
+
+    if (!JWT_SECRET) {
+      return res.status(500).json({ error: 'JWT secret is not configured' })
+    }
+
     const user = await prisma.user.findUnique({ where: { email } })
 
     if (!user) {
