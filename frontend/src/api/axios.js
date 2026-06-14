@@ -1,9 +1,8 @@
 import axios from 'axios'
 
+const base = (typeof import !== 'undefined' && typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || 'http://localhost:4000'
 const api = axios.create({
-  baseURL:
-    (typeof process !== 'undefined' && process.env.REACT_APP_API_URL) ||
-    'http://localhost:4000/api'
+  baseURL: `${base.replace(/\/$/, '')}/api`
 })
 
 // Attach JWT to every request automatically
