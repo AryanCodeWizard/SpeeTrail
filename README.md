@@ -9,8 +9,8 @@
 
 | Service | URL |
 |---------|-----|
-| **Frontend (Vercel)** | https://your-app.vercel.app |
-| **Backend API (Render)** | https://your-api.onrender.com |
+| **Frontend (Vercel)** | https://spee-trail-eight.vercel.app/login |
+| **Backend API (Render)** | https://speetrail.onrender.com |
 | **Database (Neon PostgreSQL)** | Managed — not publicly accessible |
 
 > Replace the URLs above with your actual deployed URLs before submission.
