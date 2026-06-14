@@ -19,7 +19,7 @@ model User {
   settlementsPaid Settlement[]      @relation("SettlementPaidBy")
   settlementsRcvd Settlement[]      @relation("SettlementPaidTo")
   groupsCreated   Group[]
-  importSessions  ImportSession[]
+  importSessions  ImportSession[] 
   invitesSent     GroupInvite[]
 
   @@map("users")

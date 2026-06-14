@@ -3,27 +3,28 @@ import { useNavigate } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import api from '../api/axios'
 import { useAuth } from '../context/AuthContext'
-import Sidebar         from '../components/Sidebar'
-import ExpenseFeed     from '../components/ExpenseFeed'
-import BalancePanel    from '../components/BalancePanel'
-import MemberPanel     from '../components/MemberPanel'
+import Sidebar from '../components/Sidebar'
+import ExpenseFeed from '../components/ExpenseFeed'
+import BalancePanel from '../components/BalancePanel'
+import MemberPanel from '../components/MemberPanel'
 import AddExpenseModal from '../components/AddExpenseModal'
-import ImportWizard    from '../components/ImportWizard'
+import ImportWizard from '../components/ImportWizard'
 
 const TABS = ['Expenses', 'Balances', 'Members', 'Import']
 
 export default function Home() {
-  const { user }    = useAuth()
-  const navigate    = useNavigate()
+  const { user } = useAuth()
+  const navigate = useNavigate()
 
-  const [groups,        setGroups]        = useState([])
+  const [groups, setGroups] = useState([])
   const [activeGroupId, setActiveGroupId] = useState(null)
-  const [activeGroup,   setActiveGroup]   = useState(null)
-  const [expenses,      setExpenses]      = useState([])
-  const [balanceData,   setBalanceData]   = useState(null)
-  const [activeTab,     setActiveTab]     = useState('Expenses')
-  const [showAddModal,  setShowAddModal]  = useState(false)
-  const [loadingGroup,  setLoadingGroup]  = useState(false)
+  const [activeGroup, setActiveGroup] = useState(null)
+  const [expenses, setExpenses] = useState([])
+  const [balanceData, setBalanceData] = useState(null)
+  const [activeTab, setActiveTab] = useState('Expenses')
+  const [showAddModal, setShowAddModal] = useState(false)
+  const [loadingGroup, setLoadingGroup] = useState(false)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   // Load user's groups on mount
   useEffect(() => {
@@ -65,6 +66,7 @@ export default function Home() {
   function handleGroupCreated(group) {
     setGroups(prev => [group, ...prev])
     setActiveGroupId(group.id)
+    setIsSidebarOpen(false)
   }
 
   function handleGroupUpdated() {
@@ -73,7 +75,6 @@ export default function Home() {
 
   function handleExpenseAdded(expense) {
     setExpenses(prev => [expense, ...prev])
-    // Refresh balances
     api.get(`/balances/${activeGroupId}`).then(res => setBalanceData(res.data))
   }
 
@@ -116,9 +117,9 @@ export default function Home() {
       .join('\n')
 
     const blob = new Blob([csv], { type: 'text/csv' })
-    const url  = URL.createObjectURL(blob)
-    const a    = document.createElement('a')
-    a.href     = url
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
     a.download = `${activeGroup?.name || 'expenses'}_${new Date().toISOString().split('T')[0]}.csv`
     a.click()
     URL.revokeObjectURL(url)
@@ -132,88 +133,194 @@ export default function Home() {
     m => m.userId === user?.id && m.role === 'admin' && !m.leftAt
   )
 
-  return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
-      <Toaster position="top-right" />
+  // Close sidebar on window resize to desktop view
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsSidebarOpen(false)
+      }
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
-      {/* Sidebar */}
-      <Sidebar
-        groups={groups}
-        activeGroupId={activeGroupId}
-        onSelectGroup={id => { setActiveGroupId(id); setActiveTab('Expenses') }}
-        onGroupCreated={handleGroupCreated}
-      />
+  return (
+    <div className="flex h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 overflow-hidden">
+      <Toaster position="top-right" toastOptions={{ className: 'text-sm' }} />
+
+      {/* Mobile menu backdrop */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-20 lg:hidden transition-opacity duration-300"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar - responsive with animation */}
+      <div className={`
+        fixed inset-y-0 left-0 z-30 transform transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}>
+        <Sidebar
+          groups={groups}
+          activeGroupId={activeGroupId}
+          onSelectGroup={id => {
+            setActiveGroupId(id)
+            setActiveTab('Expenses')
+            setIsSidebarOpen(false)
+          }}
+          onGroupCreated={handleGroupCreated}
+        />
+      </div>
 
       {/* Main content */}
-      <div className="ml-64 flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden w-full">
+        {/* Mobile header with gradient background */}
+        <div className="lg:hidden bg-white/90 backdrop-blur-md border-b border-gray-100 px-4 py-3 flex items-center gap-3 sticky top-0 z-10 shadow-sm">
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className="p-2 rounded-xl bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 transition-all duration-200 shadow-sm"
+            aria-label="Open menu"
+          >
+            <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <div className="flex-1">
+            <h2 className="font-extrabold text-gray-800">{activeGroup?.name || 'Shared Expenses'}</h2>
+            {activeGroup && (
+              <p className="text-xs text-gray-500 flex items-center gap-1">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                {activeMembers.length} member{activeMembers.length !== 1 ? 's' : ''}
+              </p>
+            )}
+          </div>
+          {activeGroupId && activeTab === 'Expenses' && (
+            <button
+              onClick={() => setShowAddModal(true)}
+              className="bg-gradient-to-r from-teal-500 to-emerald-500 text-white p-2.5 rounded-xl shadow-md hover:shadow-lg transition-all active:scale-95"
+              aria-label="Add expense"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
+              </svg>
+            </button>
+          )}
+        </div>
 
-        {/* No group selected */}
+        {/* No group selected - elegant empty state */}
         {!activeGroupId && (
-          <div className="flex-1 flex items-center justify-center text-gray-400">
-            <div className="text-center">
-              <div className="text-5xl mb-3">👈</div>
-              <p className="text-sm">Select or create a group to get started</p>
+          <div className="flex-1 flex items-center justify-center p-8">
+            <div className="text-center max-w-sm bg-white/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/30">
+              <div className="w-24 h-24 mx-auto mb-5 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center shadow-inner">
+                <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <p className="text-gray-600 font-medium text-sm">Select or create a group to get started</p>
+              <p className="text-gray-400 text-xs mt-2">Click the menu icon to create your first group</p>
             </div>
           </div>
         )}
 
         {activeGroupId && (
           <>
-            {/* Top bar */}
-            <div className="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between flex-shrink-0">
+            {/* Desktop top bar - premium design */}
+            <div className="hidden lg:flex bg-white/90 backdrop-blur-md border-b border-gray-100 px-6 py-4 items-center justify-between flex-shrink-0 shadow-sm">
               <div>
-                <h2 className="font-semibold text-gray-800">
-                  {activeGroup?.name || '...'}
-                </h2>
-                <p className="text-xs text-gray-400">
-                  {activeMembers.length} active member{activeMembers.length !== 1 ? 's' : ''}
-                </p>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 animate-pulse"></div>
+                  <h1 className="text-2xl font-extrabold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent tracking-tight">
+                    {activeGroup?.name || '...'}
+                  </h1>
+                </div>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="text-xs font-medium text-gray-600 bg-gray-100/80 rounded-full px-2 py-0.5 flex items-center gap-1">
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    {activeMembers.length} active member{activeMembers.length !== 1 ? 's' : ''}
+                  </span>
+                </div>
               </div>
 
-              {/* Add expense button */}
-              {activeTab === 'Expenses' && (
-                <button
-                  onClick={() => setShowAddModal(true)}
-                  className="bg-teal-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-teal-600 transition-colors"
-                >
-                  + Add expense
-                </button>
-              )}
-            </div>
-
-            {/* Tabs */}
-            <div className="bg-white border-b border-gray-200 px-6 flex-shrink-0">
-              <div className="flex gap-0">
-                {TABS.map(tab => (
+              <div className="flex items-center gap-3">
+                {activeTab === 'Expenses' && expenses.length > 0 && (
                   <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
-                      activeTab === tab
-                        ? 'border-teal-500 text-teal-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700'
-                    }`}
+                    onClick={handleExport}
+                    className="group px-4 py-2 text-sm font-bold text-gray-700 bg-white border border-gray-200 rounded-xl hover:border-indigo-300 hover:text-indigo-600 transition-all duration-200 flex items-center gap-2 shadow-sm hover:shadow"
                   >
-                    {tab}
-                    {tab === 'Expenses' && expenses.length > 0 && (
-                      <span className="ml-1.5 text-xs bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded-full">
-                        {expenses.length}
-                      </span>
-                    )}
+                    <svg className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    Export CSV
                   </button>
-                ))}
+                )}
+                {activeTab === 'Expenses' && (
+                  <button
+                    onClick={() => setShowAddModal(true)}
+                    className="bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white px-5 py-2 rounded-xl text-sm font-bold transition-all shadow-md hover:shadow-lg active:scale-95 flex items-center gap-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
+                    </svg>
+                    Add expense
+                  </button>
+                )}
               </div>
             </div>
 
-            {/* Tab content */}
+            {/* Tabs - modern gradient active indicator */}
+            <div className="bg-white/90 backdrop-blur-md border-b border-gray-100 px-4 sm:px-6 flex-shrink-0 sticky top-0 z-10">
+              <div className="flex gap-1 sm:gap-2 overflow-x-auto scrollbar-hide">
+                {TABS.map(tab => {
+                  const isActive = activeTab === tab
+                  return (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`
+                        relative px-4 sm:px-5 py-3 text-sm font-bold transition-all duration-200 whitespace-nowrap
+                        ${isActive 
+                          ? 'text-indigo-700' 
+                          : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50/50 rounded-t-lg'
+                        }
+                      `}
+                    >
+                      {tab}
+                      {tab === 'Expenses' && expenses.length > 0 && (
+                        <span className={`ml-1.5 text-xs font-semibold px-1.5 py-0.5 rounded-full ${
+                          isActive ? 'bg-indigo-100 text-indigo-700' : 'bg-gray-100 text-gray-600'
+                        }`}>
+                          {expenses.length}
+                        </span>
+                      )}
+                      {isActive && (
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
+                      )}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* Tab content with fade animation */}
             <div className="flex-1 overflow-y-auto">
               {loadingGroup ? (
-                <div className="flex items-center justify-center py-20 text-gray-400 text-sm">
-                  Loading...
+                <div className="p-8">
+                  <div className="animate-pulse space-y-5">
+                    <div className="h-12 bg-gradient-to-r from-gray-200 to-gray-300 rounded-xl w-full"></div>
+                    <div className="space-y-4">
+                      {[1,2,3].map(i => (
+                        <div key={i} className="h-28 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg"></div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               ) : (
-                <div className="max-w-2xl mx-auto px-6 py-6">
-
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 animate-in fade-in duration-300">
                   {activeTab === 'Expenses' && (
                     <ExpenseFeed
                       groupId={activeGroupId}
@@ -261,6 +368,29 @@ export default function Home() {
           onAdded={handleExpenseAdded}
         />
       )}
+
+      <style>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-in {
+          animation: fade-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </div>
   )
 }
