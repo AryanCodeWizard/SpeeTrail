@@ -1,13 +1,140 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String
+  passwordHash String   @map("password_hash")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  memberships     GroupMembership[]
+  expensesPaid    Expense[]         @relation("PaidBy")
+  expenseSplits   ExpenseSplit[]
+  settlementsPaid Settlement[]      @relation("SettlementPaidBy")
+  settlementsRcvd Settlement[]      @relation("SettlementPaidTo")
+  groupsCreated   Group[]
+  importSessions  ImportSession[]
+
+  @@map("users")
+}
+
+model Group {
+  id        String   @id @default(uuid())
+  name      String
+  createdBy String   @map("created_by")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  creator        User              @relation(fields: [createdBy], references: [id])
+  memberships    GroupMembership[]
+  expenses       Expense[]
+  settlements    Settlement[]
+  importSessions ImportSession[]
+
+  @@map("groups")
+}
+
+model GroupMembership {
+  id       String    @id @default(uuid())
+  groupId  String    @map("group_id")
+  userId   String    @map("user_id")
+  role     String    @default("member") // "admin" | "member"
+  joinedAt DateTime  @map("joined_at")
+  leftAt   DateTime? @map("left_at")   // NULL = currently active
+
+  group Group @relation(fields: [groupId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@map("group_memberships")
+}
+
+model Expense {
+  id             String   @id @default(uuid())
+  groupId        String   @map("group_id")
+  paidBy         String   @map("paid_by")
+  description    String
+  amountOriginal Decimal  @map("amount_original") @db.Decimal(12, 2)
+  currency       String   @default("INR")
+  amountInr      Decimal  @map("amount_inr")      @db.Decimal(12, 2)
+  fxRate         Decimal  @default(1)  @map("fx_rate") @db.Decimal(10, 4)
+  splitType      String   @map("split_type") // "equal"|"unequal"|"percentage"|"share"
+  expenseDate    DateTime @map("expense_date")
+  isSettlement   Boolean  @default(false) @map("is_settlement")
+  importId       String?  @map("import_id")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  group        Group          @relation(fields: [groupId], references: [id])
+  payer        User           @relation("PaidBy", fields: [paidBy], references: [id])
+  splits       ExpenseSplit[]
+  importSession ImportSession? @relation(fields: [importId], references: [id])
+
+  @@map("expenses")
+}
+
+model ExpenseSplit {
+  id           String  @id @default(uuid())
+  expenseId    String  @map("expense_id")
+  userId       String  @map("user_id")
+  shareAmount  Decimal @map("share_amount")  @db.Decimal(12, 2)
+  sharePercent Decimal? @map("share_percent") @db.Decimal(6, 3)
+  shareUnits   Decimal? @map("share_units")   @db.Decimal(10, 3)
+
+  expense Expense @relation(fields: [expenseId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@map("expense_splits")
+}
+
+model Settlement {
+  id         String   @id @default(uuid())
+  groupId    String   @map("group_id")
+  paidBy     String   @map("paid_by")
+  paidTo     String   @map("paid_to")
+  amount     Decimal  @db.Decimal(12, 2)
+  settledOn  DateTime @map("settled_on")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  group    Group @relation(fields: [groupId], references: [id])
+  payer    User  @relation("SettlementPaidBy", fields: [paidBy], references: [id])
+  receiver User  @relation("SettlementPaidTo", fields: [paidTo], references: [id])
+
+  @@map("settlements")
+}
+
+model ImportSession {
+  id          String    @id @default(uuid())
+  groupId     String    @map("group_id")
+  initiatedBy String    @map("initiated_by")
+  status      String    @default("pending_review") // "pending_review"|"approved"|"rejected"
+  anomalyReport Json?   @map("anomaly_report")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  approvedAt  DateTime? @map("approved_at")
+
+  group     Group       @relation(fields: [groupId], references: [id])
+  initiator User        @relation(fields: [initiatedBy], references: [id])
+  rows      ImportRow[]
+  expenses  Expense[]
+
+  @@map("import_sessions")
+}
+
+model ImportRow {
+  id            String  @id @default(uuid())
+  importId      String  @map("import_idcd server")
+  rowNumber     Int     @map("row_number")
+  rawData       Json    @map("raw_data")
+  status        String  // "clean"|"anomaly"|"skipped"
+  anomalyType   String? @map("anomaly_type")
+  anomalyDetail String? @map("anomaly_detail")
+  actionTaken   String? @map("action_taken")
+
+  importSession ImportSession @relation(fields: [importId], references: [id])
+
+  @@map("import_rows")
 }
