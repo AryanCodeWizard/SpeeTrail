@@ -1,7 +1,6 @@
 import { getActiveMembersOnDate, wasMemberOnDate } from '../utils/membershipUtils.js'
 
-import { PrismaClient } from '@prisma/client'
-import { PrismaPg } from '@prisma/adapter-pg'
+import prisma from '../config/prisma.js'
 import authMiddleware from '../middleware/auth.js'
 import { convertToInr } from '../utils/currencyConverter.js'
 import express from 'express'
@@ -9,7 +8,7 @@ import express from 'express'
 const router = express.Router()
 const connectionString = `${globalThis.process?.env?.DATABASE_URL || ''}`
 const adapter = new PrismaPg({ connectionString })
-const prisma = new PrismaClient({ adapter })
+// const prisma = new PrismaClient({ adapter })
 
 router.use(authMiddleware)
 

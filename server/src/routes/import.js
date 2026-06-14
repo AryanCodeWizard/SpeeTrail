@@ -1,7 +1,7 @@
 import { commitImport, detectAnomalies, normalizeHeaders, parseCSV } from '../services/importService.js'
 
-import { PrismaClient } from '@prisma/client'
-import { PrismaPg } from '@prisma/adapter-pg'
+// import { PrismaClient } from '@prisma/client'
+// import { PrismaPg } from '@prisma/adapter-pg'
 import authMiddleware from '../middleware/auth.js'
 import express from 'express'
 import multer from 'multer'
@@ -9,7 +9,7 @@ import multer from 'multer'
 const router = express.Router()
 const connectionString = `${globalThis.process?.env?.DATABASE_URL || ''}`
 const adapter = new PrismaPg({ connectionString })
-const prisma = new PrismaClient({ adapter })
+// const prisma = new PrismaClient({ adapter })
 const upload = multer({ storage: multer.memoryStorage() })
 
 router.use(authMiddleware)
