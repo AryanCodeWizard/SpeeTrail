@@ -5,6 +5,7 @@ import { commitImport, detectAnomalies, normalizeHeaders, parseCSV } from '../se
 import authMiddleware from '../middleware/auth.js'
 import express from 'express'
 import multer from 'multer'
+import prisma from '../config/prisma.js'
 
 const router = express.Router()
 const connectionString = `${globalThis.process?.env?.DATABASE_URL || ''}`
