@@ -1,5 +1,9 @@
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+import { PrismaClient } from '@prisma/client'
+import { PrismaPg } from '@prisma/adapter-pg'
+
+const connectionString = `${globalThis.process?.env?.DATABASE_URL || ''}`
+const adapter = new PrismaPg({ connectionString })
+const prisma = new PrismaClient({ adapter })
 
 /**
  * Returns user IDs who were active members of a group on a specific date.
@@ -49,4 +53,4 @@ async function wasMemberOnDate(groupId, userId, date) {
   return !!membership
 }
 
-module.exports = { getActiveMembersOnDate, wasMemberOnDate }
+export { getActiveMembersOnDate, wasMemberOnDate }
