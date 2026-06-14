@@ -85,7 +85,7 @@ model ExpenseSplit {
   sharePercent Decimal? @map("share_percent") @db.Decimal(6, 3)
   shareUnits   Decimal? @map("share_units")   @db.Decimal(10, 3)
 
-  expense Expense @relation(fields: [expenseId], references: [id])
+  expense Expense @relation(fields: [expenseId], references: [id], onDelete: Cascade)
   user    User    @relation(fields: [userId], references: [id])
 
   @@map("expense_splits")
