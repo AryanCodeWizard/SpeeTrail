@@ -5,9 +5,7 @@ import express from 'express'
 import jwt from 'jsonwebtoken'
 
 const router = express.Router()
-const connectionString = `${globalThis.process?.env?.DATABASE_URL || ''}`
-const adapter = new PrismaPg({ connectionString })
-// const prisma = new PrismaClient({ adapter })
+// using shared prisma client from config/prisma.js
 
 // POST /api/auth/register
 router.post('/register', async (req, res) => {

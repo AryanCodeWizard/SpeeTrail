@@ -6,8 +6,7 @@ import { convertToInr } from '../utils/currencyConverter.js'
 import express from 'express'
 
 const router = express.Router()
-const connectionString = `${globalThis.process?.env?.DATABASE_URL || ''}`
-const adapter = new PrismaPg({ connectionString })
+// using shared prisma client from config/prisma.js
 // const prisma = new PrismaClient({ adapter })
 
 router.use(authMiddleware)

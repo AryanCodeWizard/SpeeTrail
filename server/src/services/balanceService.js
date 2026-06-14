@@ -1,10 +1,7 @@
-import { PrismaClient } from '@prisma/client'
-import { PrismaPg } from '@prisma/adapter-pg'
+import prisma from '../config/prisma.js'
 import { simplifyDebts } from './debtSimplifier.js'
 
-const connectionString = `${globalThis.process?.env?.DATABASE_URL || ''}`
-const adapter = new PrismaPg({ connectionString })
-const prisma = new PrismaClient({ adapter })
+// use shared prisma client from config/prisma.js
 
 /**
  * Calculates net balance for every member of a group.

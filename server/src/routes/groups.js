@@ -2,11 +2,10 @@
 // import { PrismaPg } from '@prisma/adapter-pg'
 import authMiddleware from '../middleware/auth.js'
 import express from 'express'
+import prisma from '../config/prisma.js'
 
 const router = express.Router()
-const connectionString = `${globalThis.process?.env?.DATABASE_URL || ''}`
-const adapter = new PrismaPg({ connectionString })
-// const prisma = new PrismaClient({ adapter })
+// using shared prisma client from config/prisma.js
 
 // All group routes require authentication
 router.use(authMiddleware)

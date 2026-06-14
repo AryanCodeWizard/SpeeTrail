@@ -1,12 +1,9 @@
-import { PrismaClient } from '@prisma/client'
-import { PrismaPg } from '@prisma/adapter-pg'
+import prisma from '../config/prisma.js'
 import { convertToInr } from '../utils/currencyConverter.js'
 import { parse } from 'csv-parse/sync'
 import { wasMemberOnDate } from '../utils/membershipUtils.js'
 
-const connectionString = `${globalThis.process?.env?.DATABASE_URL || ''}`
-const adapter = new PrismaPg({ connectionString })
-const prisma = new PrismaClient({ adapter })
+// use shared prisma client from config/prisma.js
 
 // ─── STAGE 1: PARSE ───────────────────────────────────────────────────────────
 // Read raw CSV bytes → array of row objects.

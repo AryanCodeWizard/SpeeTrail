@@ -1,9 +1,4 @@
-import { PrismaClient } from '@prisma/client'
-import { PrismaPg } from '@prisma/adapter-pg'
-
-const connectionString = `${globalThis.process?.env?.DATABASE_URL || ''}`
-const adapter = new PrismaPg({ connectionString })
-const prisma = new PrismaClient({ adapter })
+import prisma from '../config/prisma.js'
 
 /**
  * Returns user IDs who were active members of a group on a specific date.

@@ -8,8 +8,7 @@ import multer from 'multer'
 
 const router = express.Router()
 const connectionString = `${globalThis.process?.env?.DATABASE_URL || ''}`
-const adapter = new PrismaPg({ connectionString })
-// const prisma = new PrismaClient({ adapter })
+// using shared prisma client from config/prisma.js
 const upload = multer({ storage: multer.memoryStorage() })
 
 router.use(authMiddleware)
