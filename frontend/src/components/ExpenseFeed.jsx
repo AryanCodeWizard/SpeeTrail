@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import api from '../api/axios'
 import toast from 'react-hot-toast'
 import { useAuth } from '../context/AuthContext'
@@ -38,26 +38,29 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
     )
   }
 
-  // Group expenses by month
-  const grouped = expenses.reduce((acc, expense) => {
-    const month = new Date(expense.expenseDate)
-      .toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })
-    if (!acc[month]) acc[month] = []
-    acc[month].push(expense)
-    return acc
-  }, {})
+  // Group expenses by month for faster re-renders
+  const grouped = useMemo(() => {
+    return expenses.reduce((acc, expense) => {
+      const month = new Date(expense.expenseDate)
+        .toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })
+      if (!acc[month]) acc[month] = []
+      acc[month].push(expense)
+      return acc
+    }, {})
+  }, [expenses])
 
-  const toggleExpand = (id) => {
-    setExpandedId(expandedId === id ? null : id)
-  }
+  const toggleExpand = useCallback((id) => {
+    setExpandedId((current) => (current === id ? null : id))
+  }, [])
 
   return (
     <div>
       {/* Export button - modern gradient */}
       <div className="flex justify-end mb-6">
         <button
+          type="button"
           onClick={onExport}
-          className="btn-primary"
+          className="relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/20 transition duration-200 hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-slate-950"
         >
           <svg className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -165,7 +168,9 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                                   e.stopPropagation()
                                   toggleExpand(expense.id)
                                 }}
-                                className={`inline-flex items-center gap-1 text-xs font-semibold transition-all duration-200 ${isExpanded ? 'text-indigo-400' : 'text-slate-400'}`}
+                                aria-expanded={isExpanded}
+                                aria-label={isExpanded ? 'Collapse expense details' : 'Expand expense details'}
+                                className={`inline-flex items-center gap-1 rounded-full border border-white/10 px-3 py-1 text-xs font-semibold transition-all duration-200 ${isExpanded ? 'bg-slate-800 text-indigo-300 shadow-sm shadow-cyan-500/10' : 'text-slate-400 hover:bg-slate-900/80 hover:text-slate-100'}`}
                               >
                                 <svg className={`w-3 h-3 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />

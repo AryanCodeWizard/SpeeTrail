@@ -81,7 +81,7 @@ export default function ImportPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="min-h-screen bg-slate-950 text-slate-100 overflow-y-auto scroll-smooth">
       <Navbar />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 
@@ -251,7 +251,7 @@ export default function ImportPage() {
                 </div>
                 <span className="text-xs font-semibold text-gray-500 bg-gray-100 px-2 py-1 rounded-full">{preview.rows.length} rows</span>
               </div>
-              <div className="space-y-3 max-h-96 overflow-y-auto pr-1 custom-scrollbar">
+              <div className="space-y-3 max-h-[45vh] overflow-y-auto pr-1 custom-scrollbar scroll-smooth">
                 {preview.rows.map(row => (
                   <div
                     key={row.rowNumber}
@@ -354,15 +354,19 @@ export default function ImportPage() {
       </div>
 
       <style>{`
+        .custom-scrollbar {
+          scroll-behavior: smooth;
+          -webkit-overflow-scrolling: touch;
+        }
         .custom-scrollbar::-webkit-scrollbar {
           width: 6px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: #f1f1f1;
+          background: rgba(255, 255, 255, 0.08);
           border-radius: 10px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, #cbd5e1, #94a3b8);
+          background: linear-gradient(to bottom, #94a3b8, #64748b);
           border-radius: 10px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
