@@ -13,7 +13,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-lg sticky top-0 z-40">
+    <nav className="bg-slate-950/85 backdrop-blur-2xl border-b border-white/10 shadow-[0_25px_70px_rgba(15,23,42,0.22)] sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo / Brand - premium gradient */}
@@ -34,15 +34,15 @@ export default function Navbar() {
           {/* Desktop user menu - modern design */}
           {user && (
             <div className="hidden md:flex items-center gap-5">
-              <div className="flex items-center gap-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-full pl-1 pr-4 py-1 shadow-md">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center text-white text-sm font-bold shadow-md ring-2 ring-white">
+              <div className="flex items-center gap-3 bg-slate-900/80 rounded-full pl-1 pr-4 py-1 shadow-[0_18px_40px_rgba(15,23,42,0.25)] border border-white/10">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center text-white text-sm font-bold shadow-md ring-2 ring-white/10">
                   {user.name?.charAt(0).toUpperCase()}
                 </div>
-                <span className="text-sm font-semibold text-gray-700">{user.name}</span>
+                <span className="text-sm font-semibold text-slate-100">{user.name}</span>
               </div>
               <button
                 onClick={handleLogout}
-                className="inline-flex items-center gap-1.5 text-sm font-bold text-red-600 hover:text-white transition-all duration-200 hover:bg-gradient-to-r hover:from-red-500 hover:to-rose-500 px-4 py-1.5 rounded-full shadow-sm hover:shadow-md"
+                className="inline-flex items-center gap-1.5 text-sm font-bold text-red-400 hover:text-white transition-all duration-200 hover:bg-gradient-to-r hover:from-red-500 hover:to-rose-500 px-4 py-1.5 rounded-full shadow-sm hover:shadow-md"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -56,7 +56,7 @@ export default function Navbar() {
           {user && (
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 hover:from-gray-100 hover:to-gray-200 transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="md:hidden p-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-400"
               aria-label="Toggle menu"
             >
               <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -73,8 +73,8 @@ export default function Navbar() {
 
       {/* Mobile dropdown menu - premium card design */}
       {user && isMobileMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 py-4 px-5 animate-in slide-in-from-top-2 duration-300 shadow-xl">
-          <div className="flex items-center gap-4 mb-4 pb-4 border-b border-gray-100">
+        <div className="md:hidden bg-slate-950/95 backdrop-blur-2xl border-t border-white/10 py-4 px-5 animate-in slide-in-from-top-2 duration-300 shadow-2xl">
+          <div className="flex items-center gap-4 mb-4 pb-4 border-b border-white/10">
             <div className="w-14 h-14 rounded-full bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center text-white text-xl font-bold shadow-lg ring-2 ring-white">
               {user.name?.charAt(0).toUpperCase()}
             </div>

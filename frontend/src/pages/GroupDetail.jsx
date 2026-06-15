@@ -65,13 +65,13 @@ export default function GroupDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+      <div className="min-h-screen bg-slate-950 text-slate-100">
         <Navbar />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-pulse">
-          <div className="h-8 w-48 bg-gradient-to-r from-gray-200 to-gray-300 rounded-lg mb-6"></div>
-          <div className="h-32 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg"></div>
+          <div className="h-8 w-48 bg-slate-800 rounded-lg mb-6"></div>
+          <div className="h-32 card-surface rounded-3xl shadow-[0_30px_80px_rgba(15,23,42,0.25)]"></div>
           <div className="mt-6 space-y-3">
-            {[1,2,3].map(i => <div key={i} className="h-20 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg"></div>)}
+            {[1,2,3].map(i => <div key={i} className="h-20 card-surface rounded-3xl shadow-[0_30px_80px_rgba(15,23,42,0.25)]"></div>)}
           </div>
         </div>
       </div>
@@ -85,11 +85,11 @@ export default function GroupDetail() {
   const activeMembers = group.memberships?.filter(m => !m.leftAt) || []
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+    <div className="min-h-screen bg-slate-950 text-slate-100">
       <Navbar />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header with gradient back button */}
-        <div className="flex flex-wrap justify-between items-start gap-4 mb-10 relative">
+        <div className="card-surface border border-white/10 p-6 mb-10 rounded-[2rem] shadow-[0_35px_90px_rgba(15,23,42,0.25)]">
           <div>
             <div className="flex items-center gap-3">
               <button
@@ -105,17 +105,19 @@ export default function GroupDetail() {
                 {group.name}
               </h1>
             </div>
-            <div className="flex items-center gap-2 mt-2 text-sm text-gray-600 bg-white/60 rounded-full px-3 py-1 w-fit">
-              <svg className="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <span>{activeMembers.length} active member{activeMembers.length !== 1 ? 's' : ''}</span>
+            <div className="flex items-center gap-2 mt-2">
+              <span className="info-pill bg-slate-900/80 text-slate-300">
+                <svg className="w-4 h-4 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                {activeMembers.length} active member{activeMembers.length !== 1 ? 's' : ''}
+              </span>
             </div>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3 mt-5">
             <Link
               to={`/groups/${groupId}/balances`}
-              className="group inline-flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur-sm border border-gray-200 rounded-xl text-sm font-semibold text-gray-700 hover:bg-white hover:border-indigo-300 hover:text-indigo-600 shadow-sm transition-all duration-200"
+              className="btn-secondary"
             >
               <svg className="w-4 h-4 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -125,7 +127,7 @@ export default function GroupDetail() {
             {isAdmin && (
               <Link
                 to={`/groups/${groupId}/import`}
-                className="group inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-50 to-pink-50 backdrop-blur-sm border border-purple-200 rounded-xl text-sm font-semibold text-purple-700 hover:from-purple-100 hover:to-pink-100 hover:border-purple-300 shadow-sm transition-all duration-200"
+                className="btn-secondary"
               >
                 <svg className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -148,7 +150,7 @@ export default function GroupDetail() {
         {/* Add expense button - modern dashed card */}
         <button
           onClick={() => setShowForm(!showForm)}
-          className="w-full mb-8 py-4 border-2 border-dashed border-gray-300 rounded-2xl text-gray-500 text-sm font-bold hover:border-indigo-400 hover:text-indigo-600 transition-all duration-200 flex items-center justify-center gap-3 bg-white/50 backdrop-blur-sm hover:bg-white/80 group"
+          className="btn-primary w-full justify-center"
         >
           <svg className={`w-5 h-5 transition-transform duration-200 ${showForm ? 'rotate-45' : 'group-hover:scale-110'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
@@ -158,7 +160,7 @@ export default function GroupDetail() {
 
         {/* Add expense form - premium card */}
         {showForm && (
-          <form onSubmit={createExpense} className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-100 p-6 mb-10 space-y-5 transition-all">
+          <form onSubmit={createExpense} className="section-surface rounded-3xl shadow-[0_30px_90px_rgba(15,23,42,0.25)] border border-white/10 p-6 mb-10 space-y-5 transition-all">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div className="sm:col-span-2">
                 <label className="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1.5 flex items-center gap-1">
@@ -168,7 +170,7 @@ export default function GroupDetail() {
                   type="text"
                   value={form.description}
                   onChange={e => setForm({ ...form, description: e.target.value })}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition-all bg-gray-50/50 hover:bg-white shadow-sm"
+                  className="w-full border border-white/10 rounded-2xl px-4 py-3 text-sm text-slate-100 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition-all bg-slate-900/80 hover:bg-slate-900 shadow-sm"
                   placeholder="Lunch, movie tickets, rent..."
                   required
                 />
@@ -246,7 +248,7 @@ export default function GroupDetail() {
             </div>
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg active:scale-[0.98]"
+              className="btn-primary w-full justify-center"
             >
               + Add expense
             </button>

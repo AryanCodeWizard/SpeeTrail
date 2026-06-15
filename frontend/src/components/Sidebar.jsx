@@ -29,24 +29,24 @@ export default function Sidebar({ groups, activeGroupId, onSelectGroup, onGroupC
   return (
     <div className="w-64 sm:w-72 glass-card border-r border-white/10 flex flex-col h-full shadow-[0_35px_90px_rgba(15,23,42,0.45)]">
       {/* App header with gradient icon - premium */}
-      <div className="px-4 py-5 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
+      <div className="px-4 py-5 border-b border-white/10 bg-slate-950/90 backdrop-blur-xl">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-10 h-10 bg-gradient-to-br from-violet-500 via-cyan-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg shadow-cyan-500/20">
             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h1 className="text-xl font-extrabold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent tracking-tight">
+          <h1 className="text-xl font-extrabold text-slate-100 tracking-tight">
             SplitApp
           </h1>
         </div>
-        <div className="flex items-center gap-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-2 shadow-inner">
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center text-white text-sm font-bold shadow-md ring-2 ring-white">
+        <div className="flex items-center gap-3 bg-slate-900/80 rounded-3xl p-3 shadow-inner border border-white/10">
+          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center text-white text-sm font-bold shadow-md ring-2 ring-white/10">
             {user?.name?.charAt(0).toUpperCase()}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-bold text-gray-800 truncate">{user?.name}</p>
-            <p className="text-xs text-gray-500 truncate hidden sm:block">{user?.email}</p>
+            <p className="text-sm font-bold text-slate-100 truncate">{user?.name}</p>
+            <p className="text-xs text-slate-400 truncate hidden sm:block">{user?.email}</p>
           </div>
         </div>
       </div>
@@ -160,7 +160,7 @@ export default function Sidebar({ groups, activeGroupId, onSelectGroup, onGroupC
         ) : (
           <button
             onClick={() => setCreating(true)}
-            className="w-full flex items-center justify-center gap-2 text-sm font-bold text-slate-950 bg-gradient-to-r from-cyan-400 via-sky-400 to-emerald-400 hover:from-cyan-300 hover:via-sky-300 hover:to-emerald-300 py-2.5 rounded-3xl transition-all shadow-lg hover:shadow-xl active:scale-95"
+            className="btn-primary"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />

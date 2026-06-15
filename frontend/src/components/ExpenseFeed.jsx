@@ -57,7 +57,7 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
       <div className="flex justify-end mb-6">
         <button
           onClick={onExport}
-          className="group relative inline-flex items-center gap-2 text-sm font-medium text-white bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 px-5 py-2.5 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg overflow-hidden"
+          className="btn-primary"
         >
           <svg className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -88,7 +88,7 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                 </span>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-3 section-surface border border-white/10 p-4 rounded-[1.75rem]">
                 {monthExpenses.map(expense => {
                   const myShare = expense.splits?.find(s => s.userId === user?.id)
                   const iPaid = expense.paidBy === user?.id

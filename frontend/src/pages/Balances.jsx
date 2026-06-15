@@ -59,17 +59,17 @@ export default function Balances() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+      <div className="min-h-screen bg-slate-950 text-slate-100">
         <Navbar />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-pulse">
-          <div className="h-8 w-48 bg-gradient-to-r from-gray-200 to-gray-300 rounded-lg mb-8"></div>
+          <div className="h-8 w-48 bg-slate-800 rounded-lg mb-8"></div>
           <div className="space-y-5">
             {[1,2,3].map(i => (
-              <div key={i} className="bg-white/80 rounded-2xl shadow-lg p-6">
-                <div className="h-6 w-40 bg-gray-200 rounded mb-4"></div>
+              <div key={i} className="card-surface rounded-3xl p-6 shadow-[0_30px_80px_rgba(15,23,42,0.25)]">
+                <div className="h-6 w-40 bg-slate-800 rounded mb-4"></div>
                 <div className="space-y-3">
-                  <div className="h-12 bg-gray-100 rounded-xl"></div>
-                  <div className="h-12 bg-gray-100 rounded-xl"></div>
+                  <div className="h-12 bg-slate-900 rounded-xl"></div>
+                  <div className="h-12 bg-slate-900 rounded-xl"></div>
                 </div>
               </div>
             ))}
@@ -80,7 +80,7 @@ export default function Balances() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+    <div className="min-h-screen bg-slate-950 text-slate-100">
       <Navbar />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header with animated back button */}
@@ -88,7 +88,7 @@ export default function Balances() {
           <div className="flex items-center gap-3">
             <Link
               to={`/groups/${groupId}`}
-              className="group w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center text-gray-500 hover:text-indigo-600 transition-all duration-300 hover:shadow-lg hover:scale-105"
+              className="group w-9 h-9 rounded-full bg-slate-900/80 shadow-lg flex items-center justify-center text-slate-200 hover:text-white transition-all duration-300 hover:shadow-xl hover:scale-105 border border-white/10"
               aria-label="Back to group"
             >
               <svg className="w-5 h-5 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,8 +113,8 @@ export default function Balances() {
         {data && (
           <div className="space-y-8">
             {/* Suggested settlements card - premium design */}
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 overflow-hidden transition-all hover:shadow-2xl">
-              <div className="px-6 pt-5 pb-3 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+            <div className="section-surface rounded-3xl border border-white/10 overflow-hidden transition-all hover:shadow-[0_25px_80px_rgba(15,23,42,0.24)]">
+              <div className="px-6 pt-5 pb-3 border-b border-white/10 bg-slate-950/90">
                 <div className="flex items-center gap-2">
                   <div className="w-7 h-7 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center shadow-md">
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -163,8 +163,8 @@ export default function Balances() {
             </div>
 
             {/* Net balances card - colorful interactive */}
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 overflow-hidden">
-              <div className="px-6 pt-5 pb-3 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+            <div className="section-surface rounded-3xl border border-white/10 overflow-hidden">
+              <div className="px-6 pt-5 pb-3 border-b border-white/10 bg-slate-950/90">
                 <div className="flex items-center gap-2">
                   <div className="w-7 h-7 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center shadow-md">
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

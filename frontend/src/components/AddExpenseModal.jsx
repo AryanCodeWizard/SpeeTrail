@@ -196,7 +196,7 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
               <button
                 onClick={handleSubmit}
                 disabled={loading}
-                className="bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white text-sm font-semibold px-4 py-1.5 rounded-full shadow-sm transition-all disabled:opacity-40 active:scale-95"
+                className="btn-primary px-4 py-1.5"
               >
                 {loading ? 'Saving...' : 'Save'}
               </button>

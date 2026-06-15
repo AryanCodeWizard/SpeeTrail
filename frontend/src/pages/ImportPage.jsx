@@ -81,17 +81,17 @@ export default function ImportPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+    <div className="min-h-screen bg-slate-950 text-slate-100">
       <Navbar />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 
         {/* Header with gradient back button */}
         <div className="flex flex-wrap justify-between items-center gap-4 mb-8">
           <div>
-            <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+            <div className="flex items-center gap-2 text-sm text-slate-400 mb-2">
               <Link
                 to={`/groups/${groupId}`}
-                className="group hover:text-indigo-600 transition-colors flex items-center gap-1 bg-white/50 rounded-full px-3 py-1 shadow-sm hover:shadow"
+                className="group hover:text-indigo-400 transition-colors flex items-center gap-1 bg-slate-900/80 rounded-full px-3 py-1 shadow-lg hover:shadow-xl border border-white/10"
               >
                 <svg className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -125,14 +125,14 @@ export default function ImportPage() {
 
         {/* Done state - celebratory card */}
         {done && (
-          <div className="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-8 text-center shadow-xl animate-in fade-in zoom-in-95 duration-300">
+          <div className="section-surface rounded-3xl border border-white/10 p-8 text-center shadow-[0_30px_90px_rgba(15,23,42,0.25)] animate-in fade-in zoom-in-95 duration-300">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full mb-5 shadow-lg animate-bounce">
               <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="text-2xl font-extrabold text-gray-800 mb-2">Import complete!</h2>
-            <p className="text-green-700 text-base mb-2 font-bold">{done.expensesCreated} expenses imported successfully.</p>
+            <h2 className="text-2xl font-extrabold text-slate-100 mb-2">Import complete!</h2>
+            <p className="text-emerald-300 text-base mb-2 font-bold">{done.expensesCreated} expenses imported successfully.</p>
             <Link
               to={`/groups/${groupId}`}
               className="inline-flex items-center gap-2 mt-4 text-sm font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 px-5 py-2.5 rounded-xl shadow-md transition-all"
@@ -147,7 +147,7 @@ export default function ImportPage() {
 
         {/* Upload form - premium gradient card */}
         {!preview && !done && (
-          <form onSubmit={handleAnalyze} className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-6 sm:p-8 transition-all hover:shadow-2xl">
+          <form onSubmit={handleAnalyze} className="section-surface rounded-3xl shadow-[0_30px_90px_rgba(15,23,42,0.25)] border border-white/10 p-6 sm:p-8 transition-all hover:shadow-[0_30px_90px_rgba(15,23,42,0.32)]">
             <div className="text-center mb-6">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full mb-4 shadow-md">
                 <svg className="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,7 +160,7 @@ export default function ImportPage() {
               </p>
             </div>
 
-            <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 sm:p-8 text-center hover:border-indigo-400 hover:bg-indigo-50/20 transition-all duration-200 group">
+            <div className="border-2 border-dashed border-white/20 rounded-3xl p-6 sm:p-8 text-center hover:border-cyan-400 hover:bg-slate-900/80 transition-all duration-200 group">
               <input
                 type="file"
                 accept=".csv"
@@ -190,7 +190,7 @@ export default function ImportPage() {
             <button
               type="submit"
               disabled={!file || loading}
-              className="w-full mt-8 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] flex items-center justify-center gap-2"
+              className="btn-primary w-full justify-center mt-8"
             >
               {loading ? (
                 <>
@@ -212,7 +212,7 @@ export default function ImportPage() {
           <div className="space-y-6 animate-in fade-in duration-300">
 
             {/* Summary banner with gradient backgrounds */}
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-5 sm:p-6">
+            <div className="section-surface rounded-3xl border border-white/10 shadow-[0_30px_90px_rgba(15,23,42,0.25)] p-5 sm:p-6">
               <div className="flex items-center gap-2 mb-5">
                 <div className="w-7 h-7 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center shadow-md">
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -239,7 +239,7 @@ export default function ImportPage() {
             </div>
 
             {/* Row-by-row preview with better cards */}
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-5 sm:p-6">
+            <div className="section-surface rounded-3xl border border-white/10 shadow-[0_30px_90px_rgba(15,23,42,0.25)] p-5 sm:p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">

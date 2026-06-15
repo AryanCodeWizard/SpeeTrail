@@ -266,7 +266,7 @@ export default function Home() {
                 {activeTab === 'Expenses' && (
                   <button
                     onClick={() => setShowAddModal(true)}
-                    className="bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white px-5 py-2 rounded-xl text-sm font-bold transition-all shadow-md hover:shadow-lg active:scale-95 flex items-center gap-2"
+                    className="btn-primary"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
@@ -278,32 +278,32 @@ export default function Home() {
             </div>
 
             {/* Tabs - modern gradient active indicator */}
-            <div className="bg-white/90 backdrop-blur-md border-b border-gray-100 px-4 sm:px-6 flex-shrink-0 sticky top-0 z-10">
-              <div className="flex gap-1 sm:gap-2 overflow-x-auto scrollbar-hide">
-                {TABS.map(tab => {
-                  const isActive = activeTab === tab
-                  return (
-                    <button
-                      key={tab}
-                      onClick={() => setActiveTab(tab)}
-                      className={`
-                        relative px-4 sm:px-5 py-3 text-sm font-bold transition-all duration-200 whitespace-nowrap
-                        ${isActive 
-                          ? 'text-indigo-700' 
-                          : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50/50 rounded-t-lg'
-                        }
-                      `}
-                    >
-                      {tab}
-                      {tab === 'Expenses' && expenses.length > 0 && (
-                        <span className={`ml-1.5 text-xs font-semibold px-1.5 py-0.5 rounded-full ${
-                          isActive ? 'bg-indigo-100 text-indigo-700' : 'bg-gray-100 text-gray-600'
-                        }`}>
-                          {expenses.length}
-                        </span>
-                      )}
-                      {isActive && (
-                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
+<div className="card-surface border border-white/10 px-4 sm:px-6 flex-shrink-0 sticky top-0 z-10">
+                <div className="flex gap-2 sm:gap-3 overflow-x-auto scrollbar-hide">
+                  {TABS.map(tab => {
+                    const isActive = activeTab === tab
+                    return (
+                      <button
+                        key={tab}
+                        onClick={() => setActiveTab(tab)}
+                        className={`
+                          relative px-4 sm:px-5 py-3 text-sm font-bold transition-all duration-200 whitespace-nowrap rounded-3xl
+                          ${isActive 
+                            ? 'text-slate-100 bg-slate-900/80 shadow-[0_18px_45px_rgba(15,23,42,0.25)]' 
+                            : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900/70'
+                          }
+                        `}
+                      >
+                        {tab}
+                        {tab === 'Expenses' && expenses.length > 0 && (
+                          <span className={`ml-1.5 text-xs font-semibold px-2 py-1 rounded-full ${
+                            isActive ? 'bg-cyan-500/15 text-cyan-200' : 'bg-white/5 text-slate-400'
+                          }`}>
+                            {expenses.length}
+                          </span>
+                        )}
+                        {isActive && (
+                          <div className="absolute inset-x-4 -bottom-1 h-1 bg-gradient-to-r from-cyan-400 to-violet-500 rounded-full"></div>
                       )}
                     </button>
                   )
