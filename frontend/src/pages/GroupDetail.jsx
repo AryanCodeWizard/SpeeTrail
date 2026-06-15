@@ -311,7 +311,7 @@ export default function GroupDetail() {
                           <>
                             <span>·</span>
                             <span className={`font-semibold ${net > 0 ? 'text-green-600' : 'text-amber-600'}`}>
-                              {net > 0 ? `you get ₹${net.toFixed(0)}` : `you owe ₹${Math.abs(net).toFixed(0)}`}
+                              {net > 0 ? `you get ₹${net.toFixed(2)}` : `you owe ₹${Math.abs(net).toFixed(2)}`}
                             </span>
                           </>
                         )}
@@ -320,7 +320,7 @@ export default function GroupDetail() {
                       <div className="mt-3 flex flex-wrap gap-2">
                         {expense.splits?.map(split => (
                           <span key={split.id} className="inline-flex items-center gap-1 text-xs font-medium bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full shadow-sm">
-                            {split.user?.name}: <span className="font-mono font-bold">₹{parseFloat(split.shareAmount).toFixed(0)}</span>
+                            {split.user?.name}: <span className="font-mono font-bold">₹{parseFloat(split.shareAmount).toFixed(2)}</span>
                           </span>
                         ))}
                       </div>

@@ -36,7 +36,7 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 sm:p-6 relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden bg-slate-950 text-slate-100 flex items-center justify-center p-4 sm:p-6">
       {/* Animated background blobs */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
@@ -44,7 +44,7 @@ export default function Register() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
-      <div className="relative bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/30 w-full max-w-md p-6 sm:p-8 transition-all duration-500 transform hover:scale-[1.01]">
+      <div className="relative glass-card rounded-[2rem] shadow-[0_40px_120px_rgba(15,23,42,0.35)] border border-white/10 w-full max-w-md p-6 sm:p-8 transition-all duration-500 transform hover:scale-[1.01]">
         {/* Icon with gradient */}
         <div className="flex justify-center mb-6">
           <div className="w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg animate-float">
@@ -54,10 +54,10 @@ export default function Register() {
           </div>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent text-center tracking-tight mb-2">
+        <h1 className="text-3xl sm:text-4xl font-extrabold gradient-text text-center tracking-tight mb-2">
           Create account
         </h1>
-        <p className="text-gray-500 text-center text-sm mb-8">
+        <p className="text-slate-400 text-center text-sm mb-8">
           Join now to start splitting expenses with friends
         </p>
 
@@ -91,7 +91,7 @@ export default function Register() {
                 type="text"
                 value={form.name}
                 onChange={e => setForm({ ...form, name: e.target.value })}
-                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition-all bg-white/50 hover:bg-white shadow-sm"
+                className="w-full pl-10 pr-4 py-3 border border-slate-700 rounded-2xl focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-400 transition-all bg-slate-950/80 hover:bg-slate-900 shadow-sm"
                 placeholder="Alex Johnson"
                 required
               />
@@ -116,7 +116,7 @@ export default function Register() {
                 type="email"
                 value={form.email}
                 onChange={e => setForm({ ...form, email: e.target.value })}
-                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition-all bg-white/50 hover:bg-white shadow-sm"
+                className="w-full pl-10 pr-4 py-3 border border-slate-700 rounded-2xl focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-400 transition-all bg-slate-950/80 hover:bg-slate-900 shadow-sm"
                 placeholder="alex@example.com"
                 required
               />
@@ -141,7 +141,7 @@ export default function Register() {
                 type="password"
                 value={form.password}
                 onChange={e => setForm({ ...form, password: e.target.value })}
-                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition-all bg-white/50 hover:bg-white shadow-sm"
+                className="w-full pl-10 pr-4 py-3 border border-slate-700 rounded-2xl focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-400 transition-all bg-slate-950/80 hover:bg-slate-900 shadow-sm"
                 placeholder="Create a strong password"
                 required
               />
@@ -151,7 +151,7 @@ export default function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] flex items-center justify-center gap-2"
+            className="w-full button-accent text-slate-950 font-bold py-3 rounded-3xl transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] flex items-center justify-center gap-2"
           >
             {loading ? (
               <>

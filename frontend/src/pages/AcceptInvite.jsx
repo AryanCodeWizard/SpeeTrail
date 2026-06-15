@@ -43,7 +43,7 @@ export default function AcceptInvite() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4">
+      <div className="min-h-screen relative overflow-hidden bg-slate-950 text-slate-100 flex items-center justify-center p-4">
         <div className="text-center">
           <div className="relative w-24 h-24 mx-auto mb-6">
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-teal-400 to-blue-500 animate-ping opacity-75"></div>
@@ -61,23 +61,23 @@ export default function AcceptInvite() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4">
+    <div className="min-h-screen relative overflow-hidden bg-slate-950 text-slate-100 flex items-center justify-center p-4">
       {/* Animated background dots */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-teal-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
       </div>
 
-      <div className="relative bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/30 w-full max-w-md p-6 sm:p-8 transition-all duration-500 transform hover:scale-[1.01] text-center">
+      <div className="relative glass-card rounded-[2rem] shadow-[0_40px_120px_rgba(15,23,42,0.35)] border border-white/10 w-full max-w-md p-6 sm:p-8 transition-all duration-500 transform hover:scale-[1.01] text-center">
         {/* Error state */}
         {error && (
           <>
-            <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-full flex items-center justify-center mx-auto mb-5 shadow-inner">
+            <div className="w-20 h-20 bg-slate-900/80 rounded-full flex items-center justify-center mx-auto mb-5 shadow-inner ring-1 ring-white/10">
               <svg className="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">Invite unavailable</h2>
+            <h2 className="text-2xl font-bold text-slate-100 mb-2">Invite unavailable</h2>
             <p className="text-sm text-red-600 mb-6">{error}</p>
             <Link
               to="/"
@@ -102,7 +102,7 @@ export default function AcceptInvite() {
             <h2 className="text-2xl font-bold text-gray-800 mb-2">
               You've joined {invite?.groupName}!
             </h2>
-            <p className="text-sm text-gray-500 mb-4">Redirecting you to the group...</p>
+            <p className="text-sm text-slate-400 mb-4">Redirecting you to the group...</p>
             <div className="inline-block w-8 h-8 border-4 border-gray-200 border-t-teal-500 rounded-full animate-spin"></div>
           </>
         )}
@@ -112,15 +112,15 @@ export default function AcceptInvite() {
           <>
             <div className="relative mx-auto w-24 h-24 mb-6">
               <div className="absolute inset-0 bg-gradient-to-r from-teal-400 to-blue-500 rounded-2xl blur-xl opacity-60 animate-pulse"></div>
-              <div className="relative w-24 h-24 rounded-2xl bg-gradient-to-br from-teal-500 to-blue-600 text-white flex items-center justify-center text-4xl font-bold shadow-2xl">
+              <div className="relative w-24 h-24 rounded-2xl bg-gradient-to-br from-cyan-500 to-sky-500 text-white flex items-center justify-center text-4xl font-bold shadow-2xl">
                 {invite.groupName?.charAt(0).toUpperCase()}
               </div>
             </div>
 
-            <h2 className="text-2xl font-extrabold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-1">
+            <h2 className="text-2xl font-extrabold gradient-text mb-1">
               Join {invite.groupName}
             </h2>
-            <p className="text-sm text-gray-600 mb-1">
+            <p className="text-sm text-slate-400 mb-1">
               <span className="font-semibold text-gray-800">{invite.inviterName}</span> invited you to join
             </p>
             <div className="flex items-center justify-center gap-1 text-xs text-gray-500 bg-gray-100 w-fit mx-auto px-3 py-1 rounded-full mb-6">

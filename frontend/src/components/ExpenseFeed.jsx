@@ -25,13 +25,13 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
   if (expenses.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
-        <div className="w-28 h-28 bg-gradient-to-br from-purple-100 via-pink-100 to-rose-100 rounded-full flex items-center justify-center mb-6 shadow-lg animate-pulse">
+        <div className="w-28 h-28 bg-slate-900/80 rounded-full flex items-center justify-center mb-6 shadow-2xl ring-1 ring-white/10 animate-pulse">
           <svg className="w-14 h-14 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
           </svg>
         </div>
-        <h3 className="text-gray-800 font-bold text-xl mb-1">✨ No expenses yet</h3>
-        <p className="text-gray-500 text-sm max-w-xs mx-auto">
+        <h3 className="text-slate-100 font-bold text-xl mb-1">✨ No expenses yet</h3>
+        <p className="text-slate-400 text-sm max-w-xs mx-auto">
           Add your first expense using the button above to start tracking shared costs.
         </p>
       </div>
@@ -80,9 +80,9 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                   </div>
-                  <h3 className="text-sm font-bold text-gray-800 tracking-wide">{month}</h3>
+                  <h3 className="text-sm font-bold text-slate-100 tracking-wide">{month}</h3>
                 </div>
-                <div className="flex-1 h-px bg-gradient-to-r from-gray-200 via-gray-100 to-transparent" />
+                <div className="flex-1 h-px bg-gradient-to-r from-slate-700 via-slate-600 to-transparent" />
                 <span className="text-sm font-bold text-white bg-gradient-to-r from-teal-500 to-emerald-500 px-3 py-1 rounded-full shadow-md">
                   ₹{monthTotal.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
                 </span>
@@ -101,10 +101,10 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                   return (
                     <div
                       key={expense.id}
-                      className={`group bg-white rounded-2xl border transition-all duration-300 ${
+                      className={`group rounded-3xl border transition-all duration-300 ${
                         isExpanded 
-                          ? 'border-indigo-200 shadow-xl shadow-indigo-100/40 scale-[1.01]' 
-                          : 'border-gray-100 shadow-md hover:shadow-lg hover:border-gray-200'
+                          ? 'bg-slate-900/90 border-cyan-500/10 shadow-[0_30px_80px_rgba(8,145,178,0.18)] scale-[1.01]' 
+                          : 'bg-slate-950/80 border-white/10 shadow-md hover:shadow-xl hover:border-slate-700'
                       }`}
                     >
                       {/* Compact view - always visible */}
@@ -115,7 +115,7 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                         <div className="flex items-center justify-between gap-3">
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <p className="text-base font-extrabold text-gray-800 truncate">
+                              <p className="text-base font-extrabold text-slate-100 truncate">
                                 {expense.description}
                               </p>
                               {expense.isSettlement && (
@@ -132,7 +132,7 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                                 </span>
                               )}
                             </div>
-                            <div className="flex items-center gap-2 text-xs text-gray-500 mt-1.5">
+                            <div className="flex items-center gap-2 text-xs text-slate-400 mt-1.5">
                               <span className="flex items-center gap-1">
                                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -141,7 +141,7 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                               </span>
                               {showNet && (
                                 <>
-                                  <span className="text-gray-300">•</span>
+                                  <span className="text-slate-500">•</span>
                                   <span className={`flex items-center gap-1 font-bold ${net > 0 ? 'text-green-600' : 'text-red-500'}`}>
                                     {net > 0 ? (
                                       <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -152,18 +152,18 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6" />
                                       </svg>
                                     )}
-                                    {net > 0 ? `you get ₹${net.toFixed(0)}` : `you owe ₹${Math.abs(net).toFixed(0)}`}
+                                    {net > 0 ? `you get ₹${net.toFixed(2)}` : `you owe ₹${Math.abs(net).toFixed(2)}`}
                                   </span>
                                 </>
                               )}
                             </div>
                           </div>
                           <div className="text-right flex-shrink-0">
-                            <p className="text-xl font-extrabold text-gray-900">
+                            <p className="text-xl font-extrabold text-slate-100">
                               ₹{parseFloat(expense.amountInr).toLocaleString('en-IN', { maximumFractionDigits: 0 })}
                             </p>
                             <div className="flex items-center justify-end gap-1 mt-1">
-                              <span className={`text-xs font-semibold transition-all duration-200 ${isExpanded ? 'text-indigo-500' : 'text-gray-400'}`}>
+                              <span className={`text-xs font-semibold transition-all duration-200 ${isExpanded ? 'text-indigo-400' : 'text-slate-400'}`}>
                                 {isExpanded ? '▲ Less' : '▼ More'}
                               </span>
                             </div>
@@ -173,52 +173,52 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
 
                       {/* Expanded details with gradient background */}
                       {isExpanded && (
-                        <div className="px-4 pb-4 pt-2 border-t border-gray-100 bg-gradient-to-br from-gray-50 to-white rounded-b-2xl animate-in slide-down duration-200">
+                        <div className="px-4 pb-4 pt-2 border-t border-slate-800 bg-slate-950/90 rounded-b-3xl animate-in slide-down duration-200">
                           <div className="space-y-3 text-sm">
                             {/* Paid by row */}
-                            <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-white shadow-sm border border-gray-100">
-                              <span className="text-gray-500 flex items-center gap-2">
+                            <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-slate-900/90 shadow-sm border border-white/10">
+                              <span className="text-slate-400 flex items-center gap-2">
                                 <svg className="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg>
                                 Paid by
                               </span>
-                              <span className="font-bold text-gray-800">{expense.payer?.name}</span>
+                              <span className="font-bold text-slate-100">{expense.payer?.name}</span>
                             </div>
                             {/* Split type row */}
-                            <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-white shadow-sm border border-gray-100">
-                              <span className="text-gray-500 flex items-center gap-2">
+                            <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-slate-900/90 shadow-sm border border-white/10">
+                              <span className="text-slate-400 flex items-center gap-2">
                                 <svg className="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l5 5a2 2 0 01.586 1.414V19a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z" />
                                 </svg>
                                 Split type
                               </span>
-                              <span className="font-bold text-gray-800 capitalize">{expense.splitType}</span>
+                              <span className="font-bold text-slate-100 capitalize">{expense.splitType}</span>
                             </div>
                             {/* Split breakdown - premium card */}
                             <div className="mt-3">
-                              <span className="text-gray-500 block mb-2 ml-1 text-xs font-bold uppercase tracking-wide flex items-center gap-1">
+                              <span className="text-slate-400 block mb-2 ml-1 text-xs font-bold uppercase tracking-wide flex items-center gap-1">
                                 <span>🔗</span> Split details
                               </span>
-                              <div className="bg-white rounded-xl p-2 shadow-md border border-gray-100 divide-y divide-gray-100">
+                              <div className="bg-slate-900/90 rounded-2xl p-3 shadow-md border border-white/10 divide-y divide-slate-800">
                                 {expense.splits?.map(split => (
                                   <div key={split.id} className="flex justify-between items-center py-2.5 px-2 first:pt-1 last:pb-1">
-                                    <span className="text-gray-700 font-semibold">{split.user?.name}</span>
-                                    <span className="font-mono font-bold text-gray-800 bg-gradient-to-r from-gray-100 to-gray-50 px-2 py-0.5 rounded-full shadow-inner">₹{parseFloat(split.shareAmount).toFixed(0)}</span>
+                                    <span className="text-slate-100 font-semibold">{split.user?.name}</span>
+                                    <span className="font-mono font-bold text-slate-100 bg-slate-800/80 px-2 py-0.5 rounded-full shadow-inner">₹{parseFloat(split.shareAmount).toFixed(2)}</span>
                                   </div>
                                 ))}
                               </div>
                             </div>
                             {/* Original amount if not INR */}
                             {expense.currency !== 'INR' && (
-                              <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200">
-                                <span className="text-amber-700 flex items-center gap-2 text-xs font-semibold">
+                              <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-slate-900/90 border border-white/10">
+                                <span className="text-amber-300 flex items-center gap-2 text-xs font-semibold">
                                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                   </svg>
                                   Original amount
                                 </span>
-                                <span className="font-mono font-bold text-amber-800 bg-white px-2 py-0.5 rounded-full text-sm shadow-sm">{expense.currency} {parseFloat(expense.amountOriginal).toFixed(2)}</span>
+                                <span className="font-mono font-bold text-amber-200 bg-slate-800/80 px-2 py-0.5 rounded-full text-sm shadow-sm">{expense.currency} {parseFloat(expense.amountOriginal).toFixed(2)}</span>
                               </div>
                             )}
                             {/* Delete button - premium style */}

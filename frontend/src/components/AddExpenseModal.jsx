@@ -176,23 +176,23 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
         onClick={onClose}
       />
 
-      {/* Modal - colorful gradient header */}
-      <div className="relative bg-white w-full sm:max-w-md sm:rounded-2xl rounded-t-2xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] animate-in slide-in-from-bottom sm:animate-in fade-in zoom-in-95 duration-200">
+      {/* Modal - premium dark glass */}
+      <div className="relative glass-card w-full sm:max-w-md sm:rounded-3xl rounded-t-3xl shadow-[0_40px_90px_rgba(15,23,42,0.3)] overflow-hidden flex flex-col max-h-[92vh] animate-in slide-in-from-bottom sm:animate-in fade-in zoom-in-95 duration-200 border border-white/10 backdrop-blur-xl">
 
         {/* Gradient header decoration */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-400 via-purple-500 to-pink-500" />
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-violet-500 to-fuchsia-500" />
 
         {/* ── MAIN STEP ──────────────────────────────────────────────────────── */}
         {step === 'main' && (
           <>
-            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-gradient-to-r from-white to-gray-50/50">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-slate-950/90">
               <button
                 onClick={onClose}
-                className="text-gray-500 hover:text-gray-700 text-sm font-medium transition-colors"
+                className="text-slate-400 hover:text-slate-100 text-sm font-medium transition-colors"
               >
                 Cancel
               </button>
-              <h2 className="text-base font-bold bg-gradient-to-r from-teal-600 to-purple-600 bg-clip-text text-transparent">Add expense</h2>
+              <h2 className="text-base font-bold text-white">Add expense</h2>
               <button
                 onClick={handleSubmit}
                 disabled={loading}
@@ -204,24 +204,24 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
 
             <div className="overflow-y-auto flex-1">
               {/* Hero section with subtle pattern */}
-              <div className="px-5 py-6 bg-gradient-to-br from-gray-50/50 to-white space-y-5">
+              <div className="px-5 py-6 bg-slate-950/90 space-y-5">
                 <input
                   autoFocus
                   type="text"
                   value={description}
                   onChange={e => setDescription(e.target.value)}
                   placeholder="What was this expense for?"
-                  className="w-full text-xl font-bold text-gray-800 placeholder-gray-300 border-none outline-none bg-transparent focus:ring-0"
+                  className="w-full text-xl font-bold text-white placeholder-slate-500 border-none outline-none bg-transparent focus:ring-0"
                 />
 
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setStep('currency')}
-                    className="flex items-center gap-1.5 bg-white border border-gray-200 hover:border-teal-300 hover:shadow-sm px-3 py-2 rounded-xl transition-all"
+                    className="flex items-center gap-1.5 bg-slate-900/80 border border-white/10 hover:border-cyan-400/40 hover:shadow-md px-3 py-2 rounded-2xl transition-all"
                   >
-                    <span className="text-xl font-bold text-teal-600">{symbol}</span>
-                    <span className="text-xs text-gray-500">{currency}</span>
-                    <svg className="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <span className="text-xl font-bold text-cyan-300">{symbol}</span>
+                    <span className="text-xs text-slate-400">{currency}</span>
+                    <svg className="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
@@ -232,14 +232,14 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
                     value={amount}
                     onChange={e => setAmount(e.target.value)}
                     placeholder="0.00"
-                    className="flex-1 text-4xl font-bold text-gray-900 placeholder-gray-200 border-none outline-none bg-transparent focus:ring-0"
+                    className="flex-1 text-4xl font-bold text-white placeholder-slate-500 border-none outline-none bg-transparent focus:ring-0"
                   />
                 </div>
               </div>
 
               {/* Paid by - colorful chips */}
-              <div className="px-5 py-4 border-b border-gray-100">
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1">
+              <div className="px-5 py-4 border-b border-white/10">
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1">
                   <span>💰</span> Paid by
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -252,7 +252,7 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
                         className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
                           isSelected
                             ? 'bg-gradient-to-r from-teal-500 to-emerald-500 text-white shadow-md scale-105'
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                            : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800'
                         }`}
                       >
                         {m.id === user?.id ? 'You' : m.name}
@@ -263,8 +263,8 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
               </div>
 
               {/* Split with */}
-              <div className="px-5 py-4 border-b border-gray-100">
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-1">
+              <div className="px-5 py-4 border-b border-white/10">
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1">
                   <span>👥</span> Split with
                 </p>
                 <div className="flex flex-wrap gap-2 mb-4">
@@ -275,7 +275,7 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
                       className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                         p.included
                           ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-sm'
-                          : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
+                          : 'bg-slate-900/80 text-slate-400 hover:bg-slate-800'
                       }`}
                     >
                       {p.userId === user?.id ? 'You' : p.name}
@@ -285,22 +285,22 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
 
                 <button
                   onClick={() => setStep('split')}
-                  className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-gray-50 to-gray-100 hover:from-gray-100 hover:to-gray-200 rounded-xl transition-all group shadow-sm"
+                  className="w-full flex items-center justify-between p-3 bg-slate-900/90 hover:bg-slate-800 rounded-2xl transition-all group shadow-md"
                 >
                   <div className="flex items-center gap-2">
                     <span className="text-xl">{currentSplitType?.icon}</span>
                     <div className="text-left">
-                      <p className="text-sm font-semibold text-gray-700">
+                      <p className="text-sm font-semibold text-white">
                         {currentSplitType?.label}
                       </p>
                       {total > 0 && included.length > 0 && (
-                        <p className="text-xs text-gray-500 mt-0.5">
+                        <p className="text-xs text-slate-400 mt-0.5">
                           {splitSummaryLabel()}
                         </p>
                       )}
                     </div>
                   </div>
-                  <svg className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-slate-500 group-hover:text-slate-300 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
@@ -308,14 +308,14 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
 
               {/* Date */}
               <div className="px-5 py-4">
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1">
                   <span>📅</span> Date
                 </p>
                 <input
                   type="date"
                   value={expenseDate}
                   onChange={e => setExpenseDate(e.target.value)}
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent transition-all"
+                  className="w-full bg-slate-900/80 border border-white/10 rounded-2xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all"
                 />
               </div>
             </div>
@@ -325,10 +325,10 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
         {/* ── SPLIT TYPE STEP ───────────────────────────────────────────────── */}
         {step === 'split' && (
           <>
-            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-slate-950/90">
               <button
                 onClick={() => setStep('main')}
-                className="text-gray-500 hover:text-gray-700 text-sm font-medium flex items-center gap-1"
+                className="text-slate-400 hover:text-slate-100 text-sm font-medium flex items-center gap-1"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -338,7 +338,7 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
               <h2 className="text-base font-bold bg-gradient-to-r from-teal-600 to-purple-600 bg-clip-text text-transparent">Split options</h2>
               <button
                 onClick={() => setStep('main')}
-                className="text-teal-600 hover:text-teal-700 text-sm font-semibold"
+                className="text-cyan-300 hover:text-cyan-100 text-sm font-semibold"
               >
                 Done
               </button>
@@ -351,10 +351,10 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
                   <button
                     key={opt.value}
                     onClick={() => setSplitType(opt.value)}
-                    className={`py-2.5 rounded-xl text-xs font-bold transition-all ${
+                    className={`py-2.5 rounded-2xl text-xs font-bold transition-all ${
                       splitType === opt.value
                         ? `bg-gradient-to-r ${opt.color} text-white shadow-md scale-105`
-                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                        : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800'
                     }`}
                   >
                     <div className="text-base mb-0.5">{opt.icon}</div>
@@ -373,16 +373,16 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
                       className={`flex items-center justify-between px-4 py-3 rounded-xl cursor-pointer transition-all ${
                         p.included
                           ? 'bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 shadow-sm'
-                          : 'bg-gray-50 border border-gray-100 hover:bg-gray-100'
+                          : 'bg-slate-950/90 border border-white/10 hover:bg-slate-900/80'
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold transition-all ${
-                          p.included ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow' : 'bg-gray-200 text-gray-400'
+                          p.included ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow' : 'bg-slate-900/80 text-slate-300'
                         }`}>
                           {p.name.charAt(0).toUpperCase()}
                         </div>
-                        <span className={`text-sm font-medium ${p.included ? 'text-gray-800' : 'text-gray-400'}`}>
+                        <span className={`text-sm font-medium ${p.included ? 'text-slate-100' : 'text-slate-400'}`}>
                           {p.userId === user?.id ? 'You' : p.name}
                         </span>
                       </div>
@@ -395,7 +395,7 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
                         <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
                           p.included
                             ? 'bg-blue-500 border-blue-500'
-                            : 'border-gray-300'
+                            : 'border-white/10'
                         }`}>
                           {p.included && (
                             <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -408,7 +408,7 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
                   ))}
 
                   {total > 0 && included.length > 0 && (
-                    <div className="text-center text-xs text-gray-500 bg-gray-50 p-2 rounded-lg mt-2">
+                    <div className="text-center text-xs text-slate-400 bg-slate-950/80 p-2 rounded-2xl mt-2">
                       {symbol}{total.toFixed(2)} ÷ {included.length} = <span className="font-bold text-blue-600">{symbol}{getEqualShare()}</span> each
                     </div>
                   )}
@@ -422,30 +422,30 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
                     <div
                       key={p.userId}
                       className={`flex items-center gap-3 px-4 py-2.5 rounded-xl border transition-all ${
-                        p.included ? 'border-orange-200 bg-white' : 'border-gray-100 bg-gray-50 opacity-50'
+                        p.included ? 'border-orange-500/30 bg-slate-950/80' : 'border-white/10 bg-slate-950/80 opacity-80'
                       }`}
                     >
                       <button
                         onClick={() => toggle(p.userId)}
                         className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-all ${
-                          p.included ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow' : 'bg-gray-200 text-gray-400'
+                          p.included ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow' : 'bg-slate-900/80 text-slate-400'
                         }`}
                       >
                         {p.name.charAt(0).toUpperCase()}
                       </button>
 
-                      <span className="flex-1 text-sm font-medium text-gray-700 truncate">
+                      <span className="flex-1 text-sm font-medium text-slate-100 truncate">
                         {p.userId === user?.id ? 'You' : p.name}
                       </span>
 
                       {p.included && (
                         <>
                           {total > 0 && (
-                            <span className="text-xs text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">
+                            <span className="text-xs text-slate-400 bg-slate-950/80 px-1.5 py-0.5 rounded">
                               {symbol}{((total * parseFloat(p.value || 0)) / 100).toFixed(2)}
                             </span>
                           )}
-                          <div className="flex items-center gap-1 bg-orange-50 rounded-lg px-2 py-1">
+                          <div className="flex items-center gap-1 bg-orange-500/10 rounded-lg px-2 py-1">
                             <input
                               type="number"
                               min="0"
@@ -454,7 +454,7 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
                               value={p.value}
                               onChange={e => setVal(p.userId, e.target.value)}
                               placeholder="0"
-                              className="w-12 bg-transparent text-sm font-bold text-gray-800 text-right outline-none"
+                              className="w-12 bg-transparent text-sm font-bold text-white text-right outline-none"
                             />
                             <span className="text-sm text-orange-500">%</span>
                           </div>
@@ -465,8 +465,8 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
 
                   <div className={`flex justify-between px-4 py-2.5 rounded-xl text-sm font-bold ${
                     Math.abs(getPercentSum() - 100) < 0.01
-                      ? 'bg-green-100 text-green-700 border border-green-200'
-                      : 'bg-red-100 text-red-600 border border-red-200'
+                      ? 'bg-emerald-500/10 text-emerald-200 border border-emerald-500/20'
+                      : 'bg-amber-500/10 text-amber-200 border border-amber-500/20'
                   }`}>
                     <span>Total</span>
                     <span>{getPercentSum().toFixed(1)}% of 100%</span>
@@ -481,24 +481,24 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
                     <div
                       key={p.userId}
                       className={`flex items-center gap-3 px-4 py-2.5 rounded-xl border transition-all ${
-                        p.included ? 'border-purple-200 bg-white' : 'border-gray-100 bg-gray-50 opacity-50'
+                        p.included ? 'border-purple-500/30 bg-slate-950/80' : 'border-white/10 bg-slate-950/80 opacity-80'
                       }`}
                     >
                       <button
                         onClick={() => toggle(p.userId)}
                         className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-all ${
-                          p.included ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow' : 'bg-gray-200 text-gray-400'
+                          p.included ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow' : 'bg-slate-900/80 text-slate-400'
                         }`}
                       >
                         {p.name.charAt(0).toUpperCase()}
                       </button>
 
-                      <span className="flex-1 text-sm font-medium text-gray-700 truncate">
+                      <span className="flex-1 text-sm font-medium text-slate-100 truncate">
                         {p.userId === user?.id ? 'You' : p.name}
                       </span>
 
                       {p.included && (
-                        <div className="flex items-center gap-1 bg-purple-50 rounded-lg px-2 py-1">
+                        <div className="flex items-center gap-1 bg-purple-500/10 rounded-lg px-2 py-1">
                           <span className="text-sm text-purple-500">{symbol}</span>
                           <input
                             type="number"
@@ -507,7 +507,7 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
                             value={p.value}
                             onChange={e => setVal(p.userId, e.target.value)}
                             placeholder="0.00"
-                            className="w-20 bg-transparent text-sm font-bold text-gray-800 text-right outline-none"
+                            className="w-20 bg-transparent text-sm font-bold text-white text-right outline-none"
                           />
                         </div>
                       )}
@@ -540,37 +540,37 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
                     <div
                       key={p.userId}
                       className={`flex items-center gap-3 px-4 py-2.5 rounded-xl border transition-all ${
-                        p.included ? 'border-emerald-200 bg-white' : 'border-gray-100 bg-gray-50 opacity-50'
+                        p.included ? 'border-emerald-500/30 bg-slate-950/80' : 'border-white/10 bg-slate-950/80 opacity-80'
                       }`}
                     >
                       <button
                         onClick={() => toggle(p.userId)}
                         className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-all ${
-                          p.included ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow' : 'bg-gray-200 text-gray-400'
+                          p.included ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow' : 'bg-slate-900/80 text-slate-400'
                         }`}
                       >
                         {p.name.charAt(0).toUpperCase()}
                       </button>
 
-                      <span className="flex-1 text-sm font-medium text-gray-700 truncate">
+                      <span className="flex-1 text-sm font-medium text-slate-100 truncate">
                         {p.userId === user?.id ? 'You' : p.name}
                       </span>
 
                       {p.included && (
                         <>
                           {total > 0 && (
-                            <span className="text-xs text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">
+                            <span className="text-xs text-slate-400 bg-slate-950/80 px-1.5 py-0.5 rounded">
                               {symbol}{getShareAmount(p)}
                             </span>
                           )}
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() => setVal(p.userId, Math.max(1, (parseFloat(p.value) || 1) - 1).toString())}
-                              className="w-7 h-7 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center text-lg font-bold hover:bg-gray-300 transition-all active:scale-95"
+                              className="w-7 h-7 rounded-full bg-slate-900/80 text-slate-300 flex items-center justify-center text-lg font-bold hover:bg-slate-800 transition-all active:scale-95"
                             >
                               −
                             </button>
-                            <span className="w-6 text-center text-sm font-bold text-gray-800">
+                            <span className="w-6 text-center text-sm font-bold text-slate-100">
                               {p.value || '1'}
                             </span>
                             <button
@@ -586,7 +586,7 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
                   ))}
 
                   {total > 0 && included.length > 0 && (
-                    <p className="text-center text-xs text-gray-500 pt-1 bg-gray-50 p-2 rounded-lg">
+                    <p className="text-center text-xs text-slate-400 pt-1 bg-slate-950/80 p-2 rounded-2xl">
                       {getShareTotal()} total shares · {symbol}{total.toFixed(2)} total
                     </p>
                   )}
@@ -599,17 +599,17 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
         {/* ── CURRENCY STEP ─────────────────────────────────────────────────── */}
         {step === 'currency' && (
           <>
-            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-slate-950/90">
               <button
                 onClick={() => setStep('main')}
-                className="text-gray-500 hover:text-gray-700 text-sm font-medium flex items-center gap-1"
+                className="text-slate-400 hover:text-slate-100 text-sm font-medium flex items-center gap-1"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
                 Back
               </button>
-              <h2 className="text-base font-bold bg-gradient-to-r from-teal-600 to-purple-600 bg-clip-text text-transparent">Currency</h2>
+              <h2 className="text-base font-bold text-white">Currency</h2>
               <div className="w-12" />
             </div>
 
@@ -626,20 +626,20 @@ export default function AddExpenseModal({ groupId, members, onClose, onAdded }) 
                   className={`w-full flex items-center justify-between px-4 py-4 rounded-xl transition-all ${
                     currency === c.code
                       ? `bg-gradient-to-r ${c.gradient} text-white shadow-lg scale-[1.02]`
-                      : 'bg-gray-50 hover:bg-gray-100 border border-transparent hover:border-gray-200'
+                      : 'bg-slate-900/80 hover:bg-slate-800 border border-white/10'
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     <span className={`w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold ${
-                      currency === c.code ? 'bg-white/20 text-white' : 'bg-white text-gray-700 shadow'
+                      currency === c.code ? 'bg-white/10 text-white' : 'bg-slate-900/80 text-slate-200 shadow'
                     }`}>
                       {c.symbol}
                     </span>
                     <div className="text-left">
-                      <p className={`text-sm font-bold ${currency === c.code ? 'text-white' : 'text-gray-800'}`}>
+                      <p className={`text-sm font-bold ${currency === c.code ? 'text-white' : 'text-slate-100'}`}>
                         {c.code}
                       </p>
-                      <p className={`text-xs ${currency === c.code ? 'text-white/80' : 'text-gray-400'}`}>
+                      <p className={`text-xs ${currency === c.code ? 'text-white/80' : 'text-slate-400'}`}>
                         {c.name}
                       </p>
                     </div>

@@ -27,11 +27,11 @@ export default function Sidebar({ groups, activeGroupId, onSelectGroup, onGroupC
   }
 
   return (
-    <div className="w-64 sm:w-72 bg-white/90 backdrop-blur-sm border-r border-gray-100 flex flex-col h-full shadow-xl">
+    <div className="w-64 sm:w-72 glass-card border-r border-white/10 flex flex-col h-full shadow-[0_35px_90px_rgba(15,23,42,0.45)]">
       {/* App header with gradient icon - premium */}
-      <div className="px-4 py-5 border-b border-gray-100 bg-gradient-to-r from-white to-gray-50/30">
+      <div className="px-4 py-5 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
+          <div className="w-10 h-10 bg-gradient-to-br from-violet-500 via-cyan-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg shadow-cyan-500/20">
             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -54,7 +54,7 @@ export default function Sidebar({ groups, activeGroupId, onSelectGroup, onGroupC
       {/* Groups list with custom scroll - colorful group items */}
       <div className="flex-1 overflow-y-auto py-4 custom-scrollbar">
         <div className="px-4 mb-3 flex items-center gap-2">
-          <div className="w-5 h-5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
+          <div className="w-5 h-5 rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400 flex items-center justify-center">
             <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
@@ -80,22 +80,22 @@ export default function Sidebar({ groups, activeGroupId, onSelectGroup, onGroupC
                 key={group.id}
                 onClick={() => onSelectGroup(group.id)}
                 className={`
-                  w-full text-left px-3 py-2.5 rounded-xl flex items-center gap-3 transition-all duration-200 group
+                  w-full text-left px-3 py-2.5 rounded-3xl flex items-center gap-3 transition-all duration-200 group
                   ${isActive
-                    ? 'bg-gradient-to-r from-teal-50 to-emerald-50 shadow-md border border-teal-200 scale-[1.02]'
-                    : 'hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 text-gray-700'}
+                    ? 'bg-gradient-to-r from-cyan-500/15 via-slate-900/50 to-emerald-500/15 shadow-[0_20px_50px_rgba(8,145,178,0.14)] border border-cyan-400/10 scale-[1.01]'
+                    : 'hover:bg-slate-900/80 text-slate-100'}
                 `}
               >
                 <div className={`
                   w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 transition-all duration-200
                   ${isActive
-                    ? 'bg-gradient-to-br from-teal-500 to-emerald-500 text-white shadow-md'
-                    : 'bg-gradient-to-br from-gray-300 to-gray-400 text-gray-700 group-hover:from-teal-400 group-hover:to-emerald-400 group-hover:text-white'}
+                    ? 'bg-gradient-to-br from-cyan-400 to-emerald-400 text-slate-950 shadow-md'
+                    : 'bg-slate-800 text-slate-200 group-hover:bg-gradient-to-br group-hover:from-cyan-500 group-hover:to-emerald-500 group-hover:text-white'}
                 `}>
                   {group.name.charAt(0).toUpperCase()}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className={`text-sm font-semibold truncate ${isActive ? 'text-teal-800' : 'text-gray-800'}`}>
+                  <p className={`text-sm font-semibold truncate ${isActive ? 'text-cyan-200' : 'text-slate-100'}`}>
                     {group.name}
                   </p>
                   <div className="flex items-center gap-1 text-xs text-gray-500">
@@ -115,7 +115,7 @@ export default function Sidebar({ groups, activeGroupId, onSelectGroup, onGroupC
       </div>
 
       {/* Create group & logout section - premium gradient buttons */}
-      <div className="border-t border-gray-100 p-4 space-y-3 bg-gradient-to-r from-gray-50 to-white">
+      <div className="border-t border-white/10 p-4 space-y-3 bg-slate-950/80 backdrop-blur-xl">
         {creating ? (
           <form onSubmit={handleCreate} className="space-y-3 animate-in slide-in-from-bottom-2 duration-200">
             <div className="relative">
@@ -160,7 +160,7 @@ export default function Sidebar({ groups, activeGroupId, onSelectGroup, onGroupC
         ) : (
           <button
             onClick={() => setCreating(true)}
-            className="w-full flex items-center justify-center gap-2 text-sm font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-95"
+            className="w-full flex items-center justify-center gap-2 text-sm font-bold text-slate-950 bg-gradient-to-r from-cyan-400 via-sky-400 to-emerald-400 hover:from-cyan-300 hover:via-sky-300 hover:to-emerald-300 py-2.5 rounded-3xl transition-all shadow-lg hover:shadow-xl active:scale-95"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />

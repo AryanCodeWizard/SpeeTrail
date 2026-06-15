@@ -145,7 +145,12 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="flex h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 overflow-hidden">
+    <div className="relative flex h-screen overflow-hidden bg-slate-950 text-slate-100">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-28 -left-20 w-72 h-72 rounded-full bg-[radial-gradient(circle,_rgba(139,92,246,0.28),_transparent_55%)] blur-3xl"></div>
+        <div className="absolute -bottom-24 right-0 w-96 h-96 rounded-full bg-[radial-gradient(circle,_rgba(6,182,212,0.22),_transparent_50%)] blur-3xl"></div>
+        <div className="absolute left-1/2 top-10 w-72 h-72 rounded-full bg-[radial-gradient(circle,_rgba(16,185,129,0.18),_transparent_50%)] blur-3xl -translate-x-1/2"></div>
+      </div>
       <Toaster position="top-right" toastOptions={{ className: 'text-sm' }} />
 
       {/* Mobile menu backdrop */}
@@ -176,20 +181,20 @@ export default function Home() {
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden w-full">
         {/* Mobile header with gradient background */}
-        <div className="lg:hidden bg-white/90 backdrop-blur-md border-b border-gray-100 px-4 py-3 flex items-center gap-3 sticky top-0 z-10 shadow-sm">
+        <div className="lg:hidden bg-slate-950/90 backdrop-blur-md border-b border-slate-800 px-4 py-3 flex items-center gap-3 sticky top-0 z-10 shadow-sm">
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className="p-2 rounded-xl bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 transition-all duration-200 shadow-sm"
+            className="p-2 rounded-xl bg-slate-900/90 text-slate-200 hover:bg-slate-800 transition-all duration-200 shadow-sm"
             aria-label="Open menu"
           >
-            <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-slate-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
           <div className="flex-1">
-            <h2 className="font-extrabold text-gray-800">{activeGroup?.name || 'Shared Expenses'}</h2>
+            <h2 className="font-extrabold text-slate-100">{activeGroup?.name || 'Shared Expenses'}</h2>
             {activeGroup && (
-              <p className="text-xs text-gray-500 flex items-center gap-1">
+              <p className="text-xs text-slate-400 flex items-center gap-1">
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
@@ -200,7 +205,7 @@ export default function Home() {
           {activeGroupId && activeTab === 'Expenses' && (
             <button
               onClick={() => setShowAddModal(true)}
-              className="bg-gradient-to-r from-teal-500 to-emerald-500 text-white p-2.5 rounded-xl shadow-md hover:shadow-lg transition-all active:scale-95"
+              className="bg-gradient-to-r from-cyan-400 via-sky-500 to-emerald-400 text-slate-950 p-2.5 rounded-xl shadow-lg hover:shadow-xl transition-all active:scale-95"
               aria-label="Add expense"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -213,9 +218,9 @@ export default function Home() {
         {/* No group selected - elegant empty state */}
         {!activeGroupId && (
           <div className="flex-1 flex items-center justify-center p-8">
-            <div className="text-center max-w-sm bg-white/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/30">
-              <div className="w-24 h-24 mx-auto mb-5 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center shadow-inner">
-                <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="text-center max-w-sm glass-card p-8 shadow-[0_40px_80px_rgba(15,23,42,0.35)] border border-white/10">
+              <div className="w-24 h-24 mx-auto mb-5 bg-slate-900/80 rounded-full flex items-center justify-center shadow-inner ring-1 ring-white/10">
+                <svg className="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
@@ -228,7 +233,7 @@ export default function Home() {
         {activeGroupId && (
           <>
             {/* Desktop top bar - premium design */}
-            <div className="hidden lg:flex bg-white/90 backdrop-blur-md border-b border-gray-100 px-6 py-4 items-center justify-between flex-shrink-0 shadow-sm">
+            <div className="hidden lg:flex glass-card border-b border-white/10 px-6 py-4 items-center justify-between flex-shrink-0 shadow-[0_24px_80px_rgba(15,23,42,0.22)]">
               <div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 animate-pulse"></div>
