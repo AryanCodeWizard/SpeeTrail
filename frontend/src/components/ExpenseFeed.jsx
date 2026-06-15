@@ -88,7 +88,7 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                 </span>
               </div>
 
-              <div className="space-y-3 section-surface border border-white/10 p-4 rounded-[1.75rem]">
+              <div className="space-y-3 section-surface border border-white/10 p-4 rounded-[1.75rem]" style={{ touchAction: 'pan-y' }}>
                 {monthExpenses.map(expense => {
                   const myShare = expense.splits?.find(s => s.userId === user?.id)
                   const iPaid = expense.paidBy === user?.id
@@ -102,16 +102,12 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                     <div
                       key={expense.id}
                       className={`group rounded-3xl border transition-all duration-300 ${
-                        isExpanded 
-                          ? 'bg-slate-900/90 border-cyan-500/10 shadow-[0_30px_80px_rgba(8,145,178,0.18)] scale-[1.01]' 
+                        isExpanded
+                          ? 'bg-slate-900/90 border-cyan-500/10 shadow-[0_30px_80px_rgba(8,145,178,0.18)] scale-[1.01]'
                           : 'bg-slate-950/80 border-white/10 shadow-md hover:shadow-xl hover:border-slate-700'
                       }`}
                     >
-                      {/* Compact view - always visible */}
-                      <div
-                        onClick={() => toggleExpand(expense.id)}
-                        className="p-4 cursor-pointer"
-                      >
+                      <div className="p-4">
                         <div className="flex items-center justify-between gap-3">
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 flex-wrap">
@@ -158,24 +154,32 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                               )}
                             </div>
                           </div>
-                          <div className="text-right flex-shrink-0">
+                          <div className="text-right flex-shrink-0 min-w-[110px]">
                             <p className="text-xl font-extrabold text-slate-100">
                               ₹{parseFloat(expense.amountInr).toLocaleString('en-IN', { maximumFractionDigits: 0 })}
                             </p>
-                            <div className="flex items-center justify-end gap-1 mt-1">
-                              <span className={`text-xs font-semibold transition-all duration-200 ${isExpanded ? 'text-indigo-400' : 'text-slate-400'}`}>
-                                {isExpanded ? '▲ Less' : '▼ More'}
-                              </span>
+                            <div className="flex items-center justify-end gap-2 mt-1">
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  toggleExpand(expense.id)
+                                }}
+                                className={`inline-flex items-center gap-1 text-xs font-semibold transition-all duration-200 ${isExpanded ? 'text-indigo-400' : 'text-slate-400'}`}
+                              >
+                                <svg className={`w-3 h-3 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                                {isExpanded ? 'Less' : 'More'}
+                              </button>
                             </div>
                           </div>
                         </div>
                       </div>
 
-                      {/* Expanded details with gradient background */}
                       {isExpanded && (
                         <div className="px-4 pb-4 pt-2 border-t border-slate-800 bg-slate-950/90 rounded-b-3xl animate-in slide-down duration-200">
                           <div className="space-y-3 text-sm">
-                            {/* Paid by row */}
                             <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-slate-900/90 shadow-sm border border-white/10">
                               <span className="text-slate-400 flex items-center gap-2">
                                 <svg className="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -185,7 +189,6 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                               </span>
                               <span className="font-bold text-slate-100">{expense.payer?.name}</span>
                             </div>
-                            {/* Split type row */}
                             <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-slate-900/90 shadow-sm border border-white/10">
                               <span className="text-slate-400 flex items-center gap-2">
                                 <svg className="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -195,7 +198,6 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                               </span>
                               <span className="font-bold text-slate-100 capitalize">{expense.splitType}</span>
                             </div>
-                            {/* Split breakdown - premium card */}
                             <div className="mt-3">
                               <span className="text-slate-400 block mb-2 ml-1 text-xs font-bold uppercase tracking-wide flex items-center gap-1">
                                 <span>🔗</span> Split details
@@ -209,7 +211,6 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                                 ))}
                               </div>
                             </div>
-                            {/* Original amount if not INR */}
                             {expense.currency !== 'INR' && (
                               <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-slate-900/90 border border-white/10">
                                 <span className="text-amber-300 flex items-center gap-2 text-xs font-semibold">
@@ -221,7 +222,6 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                                 <span className="font-mono font-bold text-amber-200 bg-slate-800/80 px-2 py-0.5 rounded-full text-sm shadow-sm">{expense.currency} {parseFloat(expense.amountOriginal).toFixed(2)}</span>
                               </div>
                             )}
-                            {/* Delete button - premium style */}
                             {(isAdmin || expense.paidBy === user?.id) && (
                               <div className="pt-4 flex justify-end">
                                 <button
@@ -250,9 +250,9 @@ export default function ExpenseFeed({ groupId, expenses, isAdmin, onDeleted, onE
                   )
                 })}
               </div>
-            </div>
-          )
-        })}
+              </div>
+            )
+          })}
       </div>
 
       <style>{`
